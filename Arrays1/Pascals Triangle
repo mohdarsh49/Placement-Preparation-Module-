@@ -1,0 +1,25 @@
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+         List<List<Integer>>  result = new LinkedList<>();
+
+        Integer [] prev = new Integer[]{1};
+        for(int i=1;i<=numRows;i++){
+
+            Integer [] arr = new Integer[i];
+
+            for(int k=0;k<i;k++){
+                if(k==0){
+                    arr[k]= prev[k]; // 1st value
+                }else if(k==i-1){
+                    arr[k]= prev[k-1]; // last value
+                }else{
+                    arr[k]= prev[k]+ prev[k-1];	 // intermediate values
+                }
+            }
+            prev=arr;
+
+            result.add(Arrays.asList(arr));
+        }       
+        return result;
+    }
+}
