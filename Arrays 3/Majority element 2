@@ -1,0 +1,15 @@
+class Solution {
+    public List<Integer> majorityElement(int[] nums) {
+      var threshold = nums.length / 3;
+      var numberFrequency = new HashMap<Integer, Integer>();
+      var result = new ArrayList<Integer>();
+      
+      for(var number : nums) {
+        numberFrequency.put(number, !numberFrequency.containsKey(number) ? 1 : numberFrequency.get(number) + 1);
+        if(numberFrequency.get(number) > threshold && !result.contains(number))
+          result.add(number);
+      }
+      
+      return result;
+    }
+}
