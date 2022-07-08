@@ -1,0 +1,68 @@
+class Solution {
+    private int[] temp;
+    
+    public int reversePairs(int[] nums) {
+        temp = new int[nums.length];
+        
+        return sort(nums, 0, nums.length - 1);
+    }
+    
+    private int sort(int[] nums, int left, int right) {
+        if(left == right) {
+            return 0;
+        }
+        
+        int middle = left + (right - left)/2;
+        
+        int count = 0;
+        
+        count += sort(nums, left, middle);
+        count += sort(nums, middle + 1, right);
+        count += merge(nums, left, middle, right);
+        
+        return count;
+    }
+    
+    private int merge(int[] nums, int left, int middle, int right) {
+        for(int i = left; i <= right; i++) {
+            temp[i] = nums[i];
+        }
+        
+        int count = 0;
+        int endIndexOfLessThanTwice = middle + 1;
+        // for each number in left, count how many is nums[left] > nums[right]*2
+        for(int i = left; i <= middle; i++) {
+            while(endIndexOfLessThanTwice <= right && (long)nums[i] > (long)nums[endIndexOfLessThanTwice]*2) {
+                endIndexOfLessThanTwice++;
+            }
+            
+            count += endIndexOfLessThanTwice - (middle + 1);
+        }
+        
+        // merge them
+        int leftIndex = left;
+        int rightIndex = middle + 1;
+        for(int i = left; i <= right; i++) {
+            if(leftIndex == middle + 1) {
+                // left all merged
+                // merge right
+                nums[i] = temp[rightIndex];
+                rightIndex++;
+            } else if(rightIndex == right + 1) {
+                nums[i] = temp[leftIndex];
+                leftIndex++;
+            } else if(temp[leftIndex] > temp[rightIndex]) {
+                // left smaller
+                // merge right
+                nums[i] = temp[rightIndex];
+                rightIndex++;
+            } else {
+                nums[i] = temp[leftIndex];
+                leftIndex++;
+            }
+        }
+        
+        
+        return count;
+    }
+}
