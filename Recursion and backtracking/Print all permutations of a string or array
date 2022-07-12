@@ -1,0 +1,34 @@
+ if (nums.length == 0) return new ArrayList<>();
+    
+    List<List<Integer>> permutations = new ArrayList();
+    List<Integer> list = new ArrayList();
+	//Add first int list to begin
+    list.add(nums[0]);
+    permutations.add(list);
+    
+	//starting at one because the first int is already processed.
+    for (int i = 1; i < nums.length; i++){
+	   //get the next int and the current # of permutations.
+        int num = nums[i];
+        int permSize = permutations.size();
+        
+		//for each of the current permutations:
+        for (int j = 0; j < permSize; j++){   
+            List<Integer> curr = permutations.get(j);
+            
+			//create new arrays for each new permutation and
+			//append num into each possible idx to create new permutations.
+            for (int k = 0; k < curr.size(); k++){
+                List<Integer> currCpy = new ArrayList(curr);
+                currCpy.add(k, num);
+                permutations.add(currCpy);
+            }
+            
+			//append num onto the end of curr to create the last permutation 
+            curr.add(num);
+        }
+    }
+    
+    return permutations;
+}
+}
