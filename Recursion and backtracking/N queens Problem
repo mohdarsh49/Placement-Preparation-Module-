@@ -1,0 +1,74 @@
+class Solution {
+	public List<List<String>> solveNQueens(int n) {
+	//create an empty board
+		char[][] board = new char[n][n];
+		for (char[] row: board){
+			Arrays.fill(row, '.');
+		}
+		List<List<String>> ans = new ArrayList<>();
+		N_Queens(n, board, 0, ans);
+		return ans;
+	}
+	void N_Queens(int n, char[][] board, int row, List<List<String>> ans){
+	//base case
+		if(row >= board.length){
+			ans.add(new ArrayList<>(ConstructBoard(board)));
+			return;
+		}
+		for (int col = 0; col < board.length; col++) {
+			if(IsQueenSafe(board, row, col)){
+				board[row][col] = 'Q';
+				N_Queens(n, board, row+1, ans);
+				board[row][col] = '.';
+			}
+		}
+	}
+	//check if queen is safe to place at that place.
+	boolean IsQueenSafe(char[][] board, int row, int col){
+		int tempRow = row;
+		int tempCol = col;
+		//vetical check
+		while (row >= 0){
+			if(board[row][col] == 'Q'){
+				return false;
+			}
+			row--;
+		}
+		row = tempRow;
+		//horizontal check
+		while (col >= 0){
+			if(board[row][col] == 'Q'){
+				return false;
+			}
+			col--;
+		}
+		col = tempCol;
+		//top left check
+		while (row>=0 && col>=0){
+			if (board[row][col] == 'Q'){
+				return false;
+			}
+			row--;
+			col--;
+		}
+		row = tempRow;
+		col = tempCol;
+		//top right check
+		while (row>=0 && col < board.length){
+			if (board[row][col] == 'Q'){
+				return false;
+			}
+			row--;
+			col++;
+		}
+		return true;
+	}
+	//take a final answer 2d char array board and convert it to List<String>
+	List<String> ConstructBoard(char[][] board) {
+		List<String> ans = new ArrayList<>();
+		for (char[] row: board){
+			ans.add(new String(row));
+		}
+		return ans;
+	}
+}
