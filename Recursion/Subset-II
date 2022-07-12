@@ -1,0 +1,16 @@
+class Solution {
+    Set<List<Integer>> hs = new HashSet<>();    
+    public List<List<Integer>> subsetsWithDup(int[] nums) {        
+        Arrays.sort(nums);
+        call(nums,0,nums.length,new ArrayList<>());
+        return new ArrayList<>(hs);
+    }
+    void call(int[]nums, int i,int n, List<Integer> lt){
+        hs.add(new ArrayList<>(lt));
+        for(;i<n;i++){
+            lt.add(nums[i]);
+            call(nums,i+1,n,lt);
+            lt.remove(Integer.valueOf(nums[i]));
+        }
+    }
+}
