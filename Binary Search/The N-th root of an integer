@@ -1,0 +1,5 @@
+double findNthRootOfM(int n, long long m) {
+    double t=1.000000/n;
+    double ans=pow(m,t);
+    return ans;
+}
