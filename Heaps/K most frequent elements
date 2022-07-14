@@ -1,0 +1,31 @@
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int n : nums)
+            map.merge(n, 1, Integer::sum);
+        class Item{
+            int value;
+            int count;
+            Item (int value , int count){
+                this.value = value;
+                this.count = count;
+            }
+        }
+
+        PriorityQueue<Item> q = new PriorityQueue<>((a, b) ->  b.count - a.count );
+        
+       for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+           q.add(new Item(entry.getKey(), entry.getValue()));
+       }
+        ArrayList<Integer> ans = new ArrayList<>();
+        for(int i = 0 ;i < k ; i++){
+            ans.add(q.poll().value);
+        }
+        int[] answer=  new int[ans.size()];
+        for(int i=0 ;i < ans.size();i++){
+            answer[i] = ans.get(i);
+        }
+        return answer;
+    }
+}
