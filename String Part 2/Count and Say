@@ -1,0 +1,31 @@
+class Solution {
+
+    public String countAndSay(int n) {
+        String prev = "1";
+
+        for(int i = 2; i <= n; i++){
+            int count = 0;
+            char distinct = 'n';
+            StringBuilder tmp = new StringBuilder();
+
+            for(char c : prev.toCharArray()){
+                if(distinct == 'n' || distinct == c){
+                    distinct = c;
+                    count++;
+                }
+                else{
+                    tmp.append(count);
+                    tmp.append(distinct);
+                    count = 1;
+                    distinct = c;
+                }
+            }
+
+            tmp.append(count);
+            tmp.append(distinct);
+            prev = tmp.toString();
+        }
+        
+        return prev;
+    }
+}
