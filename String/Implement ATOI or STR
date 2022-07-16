@@ -1,0 +1,35 @@
+class Solution {
+    public int myAtoi(String s) {
+	int N = s.length();
+	int i = 0;
+	while (i < N && s.charAt(i) == ' ')
+		i++;
+
+	boolean neg = false;
+	if (i < N)
+		neg = s.charAt(i) == '-';
+
+	StringBuilder sb = new StringBuilder();
+
+	if (i < N && (s.charAt(i) == '-' || s.charAt(i) == '+'))
+		i++;
+
+	while (i < N) {
+		char ch = s.charAt(i);
+		if (ch < '0' || ch > '9')
+			break;
+		sb.append(ch);
+		i++;
+	}
+
+	if (sb.isEmpty())
+		return 0;
+
+	try {
+		int ans = Integer.parseInt(sb.toString());
+		return neg ? -ans : ans;
+	} catch (NumberFormatException ex) {
+		return neg ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+	}
+}
+}
