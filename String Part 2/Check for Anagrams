@@ -1,0 +1,17 @@
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        String original = s;
+        char[] chars = original.toCharArray();
+        Arrays.sort(chars);
+        String sorted = new String(chars);
+       
+        String original2 = t;
+        char[] chars2 = original2.toCharArray();
+        Arrays.sort(chars2);
+        String sorted2 = new String(chars2);
+        
+        
+        return sorted.equals(sorted2);
+        
+    }
+}
