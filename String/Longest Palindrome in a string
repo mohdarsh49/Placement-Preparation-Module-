@@ -1,0 +1,31 @@
+class Solution {
+
+
+String max = "";
+int maxLength = 0;
+public String longestPalindrome(String s) {
+    
+    for(int i=0;i<s.length();i++){
+
+        longestPal(i,i,s);
+
+        longestPal(i,i+1,s);
+    }
+    return max;
+}
+
+private void longestPal(int left,int right,String s){
+
+    if(left>right || left<0 || right>=s.length() || s.charAt(left)!=s.charAt(right) )
+        return;
+    
+
+    if(maxLength<right-left+1){
+        maxLength = right - left + 1;
+        max = s.substring(left,right+1);
+    }
+    
+
+    longestPal(left-1,right+1,s);
+}
+}
