@@ -1,0 +1,50 @@
+class StockSpanner {
+
+    Stack<Pair> pge;
+    int count;
+    public StockSpanner() {
+        pge=new Stack<>();
+        count=0;
+        
+    }
+    
+
+    class Pair{
+        int day;
+        int stockvalue;
+        Pair(int day,int stockvalue){
+            this.day=day;
+            this.stockvalue=stockvalue;
+        }
+    }
+    
+    public int next(int price) {
+        
+      if(!pge.isEmpty() )
+      {
+         Pair pair=pge.peek();
+         while(!pge.isEmpty()&&pair.stockvalue<=price)
+            { 
+                pge.pop();
+                if(!pge.isEmpty())
+                pair=pge.peek();
+            }
+         }
+          
+            Pair pair=new Pair(count,price);
+            int val=0;
+            if(pge.isEmpty())
+            val= pair.day+1;
+            else
+             val=pair.day-pge.peek().day;
+
+            pge.push(pair);
+            count++;
+
+        return val;
+
+        
+        
+        
+    }
+}
