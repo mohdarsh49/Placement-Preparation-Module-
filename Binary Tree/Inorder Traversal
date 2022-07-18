@@ -1,0 +1,23 @@
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        
+        list = zhandu(root,list);
+        return list;
+        
+    }
+    
+    public List<Integer>zhandu(TreeNode root,List<Integer> arrayList)
+    {
+        if(root == null) return arrayList;
+        
+        
+        if(root.left != null)
+        {zhandu(root.left,arrayList);}
+        arrayList.add(root.val);
+        
+        zhandu(root.right,arrayList);
+           return arrayList;
+        
+    }
+}
