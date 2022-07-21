@@ -1,0 +1,17 @@
+class Solution {
+     public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        addValue(root, ans, 0);
+
+        return ans;
+    }
+
+    public void addValue(TreeNode root,List<List<Integer>> ans, int i){
+        if (root == null) return;
+        if(ans.size() == i) ans.add(new ArrayList<>());
+        
+        ans.get(i).add(root.val);
+        addValue(root.left, ans, i + 1);
+        addValue(root.right, ans, i + 1);
+    }
+}
