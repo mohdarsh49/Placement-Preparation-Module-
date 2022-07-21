@@ -1,0 +1,32 @@
+class BSTIterator {
+    int pointer=-1;
+    ArrayList<Integer>list=new ArrayList<>();
+
+    public BSTIterator(TreeNode root) {
+        if(root!=null){
+            addElements(root);
+        }
+        pointer=-1;
+        
+    }
+    
+    public int next() {
+        pointer++;
+        return list.get(pointer);
+    }
+    
+    public boolean hasNext() {
+        if(pointer<list.size()-1){
+            return true;
+        }
+        return false;
+    }
+    private void addElements(TreeNode root){
+        if(root==null){
+            return;
+        }
+        addElements(root.left);
+        list.add(root.val);
+        addElements(root.right);
+    }
+}
