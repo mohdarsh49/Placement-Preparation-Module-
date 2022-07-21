@@ -1,0 +1,34 @@
+class Solution {
+public TreeNode buildTree(int[] preorder, int[] inorder) {
+if(preorder.length==1)
+return new TreeNode(preorder[0]);
+return Helper(preorder,inorder,0,preorder.length-1,0,inorder.length-1);
+}
+public TreeNode Helper(int[] pre, int[] in,int sPre,int ePre,int sIn,int eIn){
+if(sPre > ePre)
+return null;
+int rootdata = pre[sPre];
+TreeNode root =new TreeNode(rootdata);
+int rootIndex =-1;
+for(int i=0; i < in.length ; i++){
+if(in[i]==rootdata)
+{ rootIndex=i;
+break;
+}
+}
+int sPreLeft = sPre+1;
+int sInLeft = sIn;
+int eInLeft = rootIndex-1;
+int sInRight = rootIndex + 1;
+int eInRight = eIn;
+int ePreRight =ePre;
+
+    int leftSubtree = eInLeft -sInLeft+1;
+    int ePreLeft = sPreLeft + leftSubtree-1;
+    int sPreRight = ePreLeft+1;
+    
+    root.left =Helper(pre,in,sPreLeft,ePreLeft,sInLeft,eInLeft);
+    root.right=Helper(pre,in,sPreRight,ePreRight,sInRight,eInRight);
+    return root;
+} 
+}
