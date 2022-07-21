@@ -1,0 +1,19 @@
+class Solution {
+    boolean balance=true;
+    public boolean isBalanced(TreeNode root) {
+        helper(root);
+        return balance;
+    }
+    private int helper(TreeNode root){
+        if(root==null){
+            return 0;
+        }
+        int right=helper(root.right);
+        int left=helper(root.left);
+        if(Math.abs(right-left)>1){
+            balance=false;
+        }
+        
+        return Math.max(left, right)+1;
+    }
+}
