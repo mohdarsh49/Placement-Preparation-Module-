@@ -1,0 +1,36 @@
+class Solution {
+    public TreeNode bstFromPreorder(int[] preorder) {
+        if(preorder==null)
+            return null;
+        if(preorder.length==1) {
+            TreeNode root=new TreeNode(preorder[0]);
+            return root;
+        }
+        TreeNode root=new TreeNode(preorder[0]);
+        for(int i=1; i<preorder.length; i++) {
+            int value=preorder[i];
+            comparePut(value,root);
+        }
+        return root;
+    }
+    
+    private static void comparePut(int value, TreeNode root) {
+        if(root==null)
+            return;
+        if(root.left==null && value<root.val) {
+            TreeNode node=new TreeNode(value);
+            root.left=node;
+            return;
+        }
+        if(root.right==null && value>root.val) {
+            TreeNode node=new TreeNode(value);
+            root.right=node;
+            return;
+        }
+        if(value<root.val)
+            comparePut(value,root.left);
+        else
+            comparePut(value,root.right);
+    }
+    
+}
