@@ -1,0 +1,23 @@
+class Solution {
+ public:
+   void pre(Node *node)
+   {
+       if(node==NULL)return;
+       
+       else
+       {
+           Node *t= node->left;
+           node->left=node->right;
+           node->right=t;
+           
+           pre(node->left);
+           pre(node->right);
+       }
+   }
+   void mirror(Node* node) {
+       if(node ->left==NULL && node->right==NULL)return;
+       pre(node);
+       return;
+       
+   }
+};
