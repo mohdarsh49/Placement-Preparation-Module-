@@ -1,0 +1,28 @@
+class Solution {
+public int maxDepth(TreeNode root) {
+
+    if(root==null) return 0; //if there is no node
+	
+	Queue<TreeNode> q = new LinkedList<TreeNode>();
+    
+    q.add(root); //we have to put root in queue
+    
+    TreeNode pN = null; //pN -> previous node which is basically the deepest node
+    
+    int ans=0,size=0;
+    
+    while(!q.isEmpty()){ //true for the 1st iteration (root added in queue)
+        ans++;          //we are increasing ans after every level
+        size = q.size(); //storing current size of queue
+        while(size>0){   //I want this loop to run only for a single level
+            pN = q.remove(); 
+            if(pN.left!=null) q.add(pN.left);
+            if(pN.right!=null) q.add(pN.right);
+            size--;   //decreasing it so at one point while loop terminates after each level
+        }
+        
+    }
+    return ans;
+    
+}
+}
