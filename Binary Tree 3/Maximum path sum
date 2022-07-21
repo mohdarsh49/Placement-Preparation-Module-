@@ -1,0 +1,21 @@
+class Solution {
+int max = Integer.MIN_VALUE;
+    public int maxPathSum(TreeNode root) {
+        rec(root);
+        return max ;
+    }
+    
+    public int rec (TreeNode root){
+        if(root == null)
+            return 0 ;
+        int left = rec(root.left);
+        int right = rec(root.right);
+        if(left < 0) //We won't include left in calculating maxValue
+            left = 0 ; 
+        if(right < 0) //We won't include right in calculating maxValue
+            right = 0 ;
+        max = Math.max(max , left + right + root.val);
+        return Math.max(left,right) + root.val ; //We have to give root.val necessarily 
+                                               // to make a link to the tree below 
+    }
+}
