@@ -1,0 +1,50 @@
+class Solution {
+    
+    int total = 0; 
+    public boolean canFinish(int numCourses, int[][] prereqs) {
+       
+        if (prereqs.length == 1) return true; 
+        
+        Map<Integer, List<Integer>> map = new HashMap<>(); 
+        Map<Integer, Boolean> seen = new HashMap<>(); 
+        
+        for (int i = 0; i < prereqs.length; i++) {
+            for (int j = 0; j < prereqs[i].length; j++) {
+                map.putIfAbsent(prereqs[i][j], new ArrayList<>());
+            }
+        }
+        
+        for (int i = 0; i < prereqs.length; i++) {
+            int interest = prereqs[i][0];
+            int prereq_class = prereqs[i][1];
+            
+            map.get(interest).add(prereq_class);
+        }
+        
+        for (Integer val : map.keySet()) {
+            boolean flag = dfs(val, map, seen); 
+            if (!flag) return false; 
+        }
+        
+        if (total > numCourses) return false; 
+        
+        return true;
+    }
+    
+    public boolean dfs(Integer val, Map<Integer, List<Integer>> map, Map<Integer, Boolean> seen) {
+        if (seen.containsKey(val)) {
+            return seen.get(val);
+        }
+        
+        seen.put(val, false);
+        
+        for (Integer next_val : map.get(val)) {
+            boolean flag = dfs(next_val, map, seen);
+            if (!flag) return false; 
+        }
+        
+        seen.put(val, true);
+        total++; 
+        return true; 
+    }
+}
