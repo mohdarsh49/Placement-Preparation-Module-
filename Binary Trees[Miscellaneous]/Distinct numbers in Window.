@@ -1,0 +1,17 @@
+vector<int> Solution::dNums(vector<int> &A, int B) {
+    vector<int> ans;
+    int N = A.size();
+    if(B>N) return ans;
+    map<int, int> m;
+    for(int i=0;i<B;i++) m[A[i]]++;
+    int si = A.size()-B+1;
+    int i= B;
+    while(si--){
+        ans.push_back(m.size());
+        m[A[i]]++;
+        m[A[i-B]]--;
+        if(m[A[i-B]]==0) m.erase(A[i-B]);
+        i++;
+    }
+    return ans;
+}
