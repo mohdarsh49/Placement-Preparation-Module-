@@ -1,0 +1,23 @@
+class Solution {
+    private List<Integer> list = new ArrayList<>();
+    public void flatten(TreeNode root) {
+        dfs(root);
+    }
+    private void dfs(TreeNode node) {
+        if(node == null) return;
+        // for every node, move all nodes to the right
+        if(node.left != null) {
+            // first: move right tree to the left tree's right tree
+            TreeNode tail = node.left;
+            while(tail.right != null) {
+                tail = tail.right;
+            }
+            tail.right = node.right;
+            // second: move left tree to the right
+            node.right = node.left;
+            node.left = null;
+        }
+        dfs(node.left);
+        dfs(node.right);
+    }
+}
