@@ -1,0 +1,25 @@
+class Solution {
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        int [][] ans=helper(image,sr,sc,color);
+        return ans;
+    }
+    
+    public int [][] helper(int [][]image, int i, int j, int color){
+        if(image[i][j]==color){
+            return image;
+        }
+        int temp=image[i][j];
+        image[i][j]=color;
+        int [][] dir={{-1,0},{1,0},{0,1},{0,-1}};
+        for(int v=0; v<dir.length;v++){
+            int nr=i+dir[v][0];
+            int nc=j+dir[v][1];
+            if(nr>=0 && nr<image.length && nc>=0 && nc<image[0].length && image[nr][nc]==temp){
+                helper(image,nr,nc,color);
+            }
+        }
+        
+        return image;
+        
+    }
+}
