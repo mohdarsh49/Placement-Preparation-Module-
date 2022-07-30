@@ -1,0 +1,18 @@
+class Solution {
+	public int solve(int i,int j,int[][] arr,int[][] dp){
+		if(i==0 && j==0) return arr[i][j];
+		if(dp[i][j]!=Integer.MAX_VALUE) return dp[i][j];
+		if(i==0) return dp[i][j] = arr[i][j] + solve(i,j-1,arr,dp);
+		if(j==0) return dp[i][j] = arr[i][j] + solve(i-1,j,arr,dp);
+		int l = solve(i,j-1,arr,dp);
+		int r = solve(i-1,j,arr,dp);
+		return  dp[i][j] = arr[i][j]+ Math.min(l,r);    
+	}
+
+	public int minPathSum(int[][] grid) {
+		int[][] dp = new int[grid.length][grid[0].length];
+		for(int[] i:dp)
+			Arrays.fill(i,Integer.MAX_VALUE);
+		return solve(grid.length-1,grid[0].length-1,grid,dp);        
+	}
+}
