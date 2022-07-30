@@ -1,0 +1,18 @@
+class Solution{
+    public static int min(int a, int b){
+        return a < b ? a : b;
+    }
+    
+	public int coinChange(int coins[], int amount) {
+	    int [] minCoins = new int[amount + 1];
+	    for(int sum = 1; sum <= amount; ++sum){
+	        minCoins[sum] = amount + 1;
+	        for(int i = 0; i < coins.length; ++i){
+	           if(sum >= coins[i]){
+	               minCoins[sum] = min(minCoins[sum], 1 + minCoins[sum - coins[i]]);
+	           }
+	        }
+	    }
+	    return minCoins[amount] > amount ? -1 : minCoins[amount];
+	}
+}
