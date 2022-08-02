@@ -1,0 +1,51 @@
+import java.util.*;
+
+public class Solution {
+
+   
+
+   public static void subset(ArrayList<Integer>arr,int idx,ArrayList<ArrayList<Integer>>res,ArrayList<Integer>ans){
+
+       
+
+       if(idx>arr.size())return;
+
+       if(idx==arr.size()){
+
+           ArrayList<Integer>base=new ArrayList<>(ans);
+
+           res.add(base);
+
+           return;
+
+       }
+
+       
+
+       ans.add(arr.get(idx));
+
+       subset(arr,idx+1,res,ans);
+
+       ans.remove(ans.size()-1);
+
+       
+
+       subset(arr,idx+1,res,ans);
+
+       
+
+   }
+
+public static ArrayList<ArrayList<Integer>> pwset(ArrayList<Integer> arr) {
+
+ ArrayList<ArrayList<Integer>>res=new ArrayList<>();
+
+       ArrayList<Integer>ans=new ArrayList<>();
+
+       subset(arr,0,res,ans);
+
+       return res;
+
+}
+
+}
