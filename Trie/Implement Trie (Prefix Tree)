@@ -1,0 +1,52 @@
+class Trie {
+    Node head;
+    public Trie() {
+        head = new Node();
+    }
+    
+    public void insert(String word) {
+        char[] chars = word.toCharArray();
+        Node current = head;
+        for(char c : chars){
+            if(current.letters[c-97] != null){
+                current = current.letters[c-97];
+            }
+            else{
+                current.letters[c-97] = new Node();
+                current = current.letters[c-97];
+            }
+        }
+        current.terminators[chars[chars.length-1]-97] = 1;
+    }
+    
+    public boolean search(String word) {
+        return look(word, false);
+    }
+    
+    public boolean startsWith(String prefix) {
+        return look(prefix, true);
+    }
+
+    public boolean look(String word, boolean startsWith){
+        char[] chars = word.toCharArray();
+        Node current = head;
+        for(char c : chars){
+            if(current.letters[c-97] != null){
+                current = current.letters[c-97];
+            }
+            else{
+                return false;
+            }
+        }
+        return startsWith ? true : current.terminators[chars[chars.length-1]-97] == 1;
+    }
+
+    class Node{
+        Node[] letters;
+        byte[] terminators;
+        public Node(){
+            letters = new Node[26];
+            terminators = new byte[26];
+        }
+    }
+}
